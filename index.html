@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>正在加载</title>
+		<meta charset="utf-8">
+	</head>
+	<script>
+		function funct(){
+			if (navigator.onLine){
+				document.getElementById("loadlabel").hidden=""
+				window.location.href="https://blcrt.github.io/4399/main.js";
+			}else{
+				document.getElementById("neterr").hidden=""
+			}
+		}
+	</script>
+	<body onload="funct();">
+		<p id="loadlabel" hidden="hidden">正在加载……</p>
+		<center><h1 id="neterr" hidden="hidden">网络无连接！请联网后刷新。</h1></center>
+	</body>
+</html>
