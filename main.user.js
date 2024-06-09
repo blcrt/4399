@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         4399 Cracker
-// @namespace    http://blcrt.github.io/4399/main.user.js
+// @namespace    http://blcrt.github.io/4399
 // @version      43.99
-// @description  Crack 4399
+// @description  4399人性化，一键破解防沉迷，一键跳转到游戏页面
 // @author       Belli_666
 // @match        https://www.4399.com/*
 // @grant        none
@@ -10,25 +10,38 @@
 // ==/UserScript==
 
 (function() {
-        'use strict';
-
-        var intervalId=setInterval(function() {
-                var elementsToRemove=["#Anti_open", "#Anti_mask", "#pusher"];
+    'use strict';
+    const pattern = /.*_.*\.htm$/i;
+    if (pattern.test(window.location.href)) {
+        var intervalId = setInterval(function() {
+                var elementsToRemove = ["#Anti_open", "#Anti_mask", "#pusher"];
 
                 elementsToRemove.forEach(function(selector) {
-                        var element=document.querySelector(selector);
+                    var element = document.querySelector(selector);
 
-                        if (element) {
-                            element.remove();
-                            clearInterval(intervalId);
-                        }
-                    });
+                    if (element) {
+                        element.remove();
+                        clearInterval(intervalId);
+                    }
+                });
 
 
-                if ( !document.querySelector("#Anti_open") && !document.querySelector("#Anti_mask") && !document.querySelector("#pusher")) {
+                if (!document.querySelector("#Anti_open") && !document.querySelector("#Anti_mask") && !document.querySelector("#pusher")) {
                     clearInterval(intervalId);
                 }
             }
 
             , 300);
-    })();
+    } else {
+        setInterval(function() {
+            var links = document.getElementsByTagName('a');
+            for (var i = 0; i < links.length; i++) {
+                if (links[i].href && links[i].href.match(/^https?:\/\/www.4399\.com\/flash\/[^"]*_[^"]\.htm$/)) {
+                    console.log('Found match, redirecting to:', links[i].href);
+                    window.location.href = links[i].href;
+                    return;
+                }
+            }
+        }, 125);
+    }
+})();
